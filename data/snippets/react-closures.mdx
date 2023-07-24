@@ -1,0 +1,49 @@
+---
+title: React Closures
+date: '2023-07-24'
+tags: ['react', 'javascript']
+summary: "What's the best way to create a closure in React?"
+---
+
+How do we create a closure in JavaScript?
+
+```typescript
+function createCounter() {
+  let count = 0;
+
+  return function () {
+    count++;
+    console.log(count);
+  };
+}
+
+const counter = createCounter();
+counter(); // Outputs: 1
+counter(); // Outputs: 2
+counter(); // Outputs: 3
+```
+
+The inner function has a closure (or backpack) that allows it to "remember" the value of count no matter where we call it!
+
+This is a super powerful tool that makes a lot of things possible!
+
+## Closures in React
+
+Here's the "React" version of the above code
+
+```typescript
+export function Counter() {
+  const [count, setCount] = useState(0);
+
+  function updateCount() {
+    setCount(count + 1);
+  }
+
+  return <button onClick={updateCount}>{count}</button>;
+}
+```
+
+Ok but I'm kind of lost here. I forked this portfolio from [reilly.dev](https://reilly.dev) and he forked the [Nextra](https://nextra.site) template for Next.js.
+
+In that repo was this post, which I haven't deleted (which is gone from his site by the way), about closures, which I grok pretty easily now.
+But reasoning about this in React might take some time!

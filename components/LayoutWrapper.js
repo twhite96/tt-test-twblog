@@ -1,20 +1,24 @@
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
-import Logo from '@/data/logo.svg'
+// import Logo from '@/data/logo.svg'
 import Link from './Link'
+import { navigation } from '@/data/nav'
+import { useRouter } from 'next/router'
+import Typewriter from 'typewriter-effect'
 import SectionContainer from './SectionContainer'
 import Footer from './Footer'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 
 const LayoutWrapper = ({ children }) => {
+  const router = useRouter()
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
         <header className="flex items-center justify-between py-10">
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
-              <div className="flex items-center justify-between">
+              {/* <div className="flex items-center justify-between">
                 <div className="mr-3">
                   <Logo />
                 </div>
@@ -25,6 +29,16 @@ const LayoutWrapper = ({ children }) => {
                 ) : (
                   siteMetadata.headerTitle
                 )}
+              </div> */}
+               <div className="text-primary-color dark:text-primary-color-dark flex items-center justify-between text-xl font-semibold">
+                {`~${router.asPath}`}{' '}
+                <Typewriter
+                  options={{
+                    strings: [],
+                    autoStart: true,
+                    loop: true,
+                  }}
+                />
               </div>
             </Link>
           </div>
@@ -40,8 +54,9 @@ const LayoutWrapper = ({ children }) => {
                 </Link>
               ))}
             </div>
+            <CommandPalette navigation={navigation} />
             <ThemeSwitch />
-            <MobileNav />
+            <DropMenu />
           </div>
         </header>
         <main className="mb-auto">{children}</main>
